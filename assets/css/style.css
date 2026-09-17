@@ -47,10 +47,6 @@ header nav a {
   font-weight: 500;
 }
 
-/* ===== Hamburger Menu (Checkbox Hack, CSS murni) ===== */
-.nav-toggle {
-  display: none;
-}
 
 .nav-toggle-label {
   display: none;
@@ -234,7 +230,90 @@ footer {
     order: 3;
   }
 
-  .nav-toggle:checked ~ nav {
+
+  header nav ul {
+    flex-direction: column;
+    gap: 0;
+    margin-top: 1rem;
+  }
+
+  header nav ul li {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  header nav ul li a {
+    display: block;
+    padding: 0.75rem 0.25rem;
+  }
+
+  /* ===== Reset & Base ===== */
+/* ... kode dasar ... */
+
+/* ===== Header & Navbar (Flexbox) ===== */
+/* ... kode header ... */
+
+/* ===== Main Layout ===== */
+/* ... kode main layout ... */
+
+/* ===== Tabel ===== */
+/* ... kode tabel ... */
+
+/* ===== Form ===== */
+/* ... kode form ... */
+
+/* ===== Footer ===== */
+/* ... kode footer ... */
+
+
+/* ===================================================== */
+/* TARUH POTONGAN KODE BARU DI SINI (BAGIAN PALING BAWAH) */
+/* ===================================================== */
+
+/* Style dasar tombol menu (sembunyi di desktop) */
+.btn-menu {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+}
+
+/* ===== Media Queries ===== */
+
+/* Tablet: grid kartu statistik 4 -> 2 kolom */
+@media (max-width: 768px) {
+  main section:nth-of-type(2) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: grid kartu statistik -> 1 kolom, navbar jadi hamburger */
+@media (max-width: 480px) {
+  main section:nth-of-type(2) {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    position: relative;
+  }
+
+  /* Tampilkan tombol menu di mobile */
+  .btn-menu {
+    display: block;
+  }
+
+  /* Sembunyikan nav secara default */
+  header nav {
+    display: none;
+    width: 100%;
+    order: 3;
+  }
+
+  /* Tampilkan nav ketika JavaScript menambahkan kelas .nav-open */
+  header nav.nav-open {
     display: block;
   }
 
@@ -252,4 +331,5 @@ footer {
     display: block;
     padding: 0.75rem 0.25rem;
   }
+}
 }
