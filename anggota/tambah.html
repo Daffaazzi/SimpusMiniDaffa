@@ -2,64 +2,114 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SIMPUS-Mini | Tambah Anggota</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Peminjaman Buku | Tambah Anggota</title>
+
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
-  <header>
-    <h1>SIMPUS-Mini</h1>
-    <!-- Tombol Hamburger disesuaikan dengan JS (.btn-menu) -->
-    <button type="button" class="btn-menu" aria-label="Toggle navigasi" aria-expanded="false">&#9776;</button>
-    
-    <nav class="nav">
-      <ul>
-        <li><a href="../index.html">Beranda</a></li>
-        <li><a href="../buku/list.html">Daftar Buku</a></li>
-        <li><a href="../buku/tambah.html">Tambah Buku</a></li>
-        <li><a href="list.html">Daftar Anggota</a></li>
-        <li><a href="tambah.html">Tambah Anggota</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main>
-    <section>
-      <h2>Tambah Anggota Baru</h2>
-      <!-- ID ditambahkan agar terbaca oleh JS (#form-tambah-anggota) -->
-      <form id="form-tambah-anggota">
-        <p>
-          <label for="nama">Nama</label><br>
-          <input type="text" id="nama" name="nama" required>
-        </p>
-        <p>
-          <label for="no_anggota">No. Anggota</label><br>
-          <input type="text" id="no_anggota" name="no_anggota" required>
-        </p>
-        <p>
-          <label for="alamat">Alamat</label><br>
-          <input type="text" id="alamat" name="alamat">
-        </p>
-        <p>
-          <label for="no_hp">No. HP</label><br>
-          <input type="text" id="no_hp" name="no_hp">
-        </p>
-        <p>
-          <label for="email">Email</label><br>
-          <input type="email" id="email" name="email">
-        </p>
-        <p>
-          <button type="submit">Simpan</button>
-        </p>
-      </form>
-    </section>
-  </main>
+<header>
+  <h1>SIMPUS-Mini</h1>
 
-  <footer>
-    <p>&copy; 2026 SIMPUS-Mini &mdash; Jobsheet 3</p>
-  </footer>
+  <button
+    type="button"
+    class="btn-menu"
+    aria-label="Buka menu"
+    aria-expanded="false">
+    ☰
+  </button>
 
-  <!-- Script JS ditambahkan -->
-  <script src="../assets/js/app.js"></script>
+  <nav class="nav">
+    <ul>
+      <li><a href="../index.html">Beranda</a></li>
+      <li><a href="../buku/list.html">Daftar Buku</a></li>
+      <li><a href="../buku/tambah.html">Tambah Buku</a></li>
+      <li><a href="list.html">Daftar Anggota</a></li>
+      <li><a href="tambah.html">Tambah Anggota</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section>
+
+    <h2>Tambah Anggota</h2>
+
+    <form id="form-tambah-anggota">
+
+      <p>
+        <label for="no_anggota">
+          Nomor Anggota
+        </label>
+
+        <input
+          type="text"
+          id="no_anggota"
+          name="no_anggota"
+          placeholder="Contoh: A005"
+          required>
+      </p>
+
+      <p>
+        <label for="nama">
+          Nama Lengkap
+        </label>
+
+        <input
+          type="text"
+          id="nama"
+          name="nama"
+          placeholder="Masukkan nama lengkap"
+          required>
+      </p>
+
+      <p>
+        <label for="alamat">
+          Alamat
+        </label>
+
+        <input
+          type="text"
+          id="alamat"
+          name="alamat"
+          placeholder="Masukkan alamat"
+          required>
+      </p>
+
+      <p>
+        <label for="no_hp">
+          Nomor HP
+        </label>
+
+        <input
+          type="tel"
+          id="no_hp"
+          name="no_hp"
+          placeholder="Contoh: 08123456789"
+          required>
+      </p>
+
+      <p>
+        <button type="submit">
+          Simpan Anggota
+        </button>
+      </p>
+
+    </form>
+
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2026 SIMPUS-Mini — Pemrograman Web
+</footer>
+
+<script src="../assets/js/app.js"></script>
+
 </body>
 </html>

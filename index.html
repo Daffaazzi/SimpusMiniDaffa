@@ -1,57 +1,232 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SIMPUS-Mini | Beranda</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
-      <script>
-        if (localStorage.getItem('isLoggedIn') !== 'true') {
-        window.location.href = 'login.html';
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIMPUS-Mini | Beranda</title>
+<script>
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'login.html';
+  }
+</script>
+<style>
+  :root{
+    --purple-deep: #1C1033;
+    --purple-mid: #4B2E83;
+    --purple-glow: #8B5CF6;
+    --white: #FFFFFF;
+    --ink-soft: rgba(230,225,255,0.78);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; min-height:100%; }
+  body{
+    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--white);
+    position:relative;
+    min-height:100vh;
+    background: linear-gradient(135deg, #050308 0%, #1B0F3A 32%, #3B2B82 62%, #1E3A8A 100%);
+    background-attachment: fixed;
+  }
+
+  /* header */
+  header{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 18px 32px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  header h1{
+    display:flex; align-items:center; gap:9px;
+    font-size: 17px;
+    font-weight:700;
+    margin:0;
+  }
+  header h1::before{
+    content:"";
+    width:22px; height:22px;
+    background:
+      linear-gradient(var(--white),var(--white)) center / 22px 6.5px no-repeat,
+      linear-gradient(var(--white),var(--white)) center / 6.5px 22px no-repeat;
+  }
+
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap: 6px;
+    margin:0; padding:0;
+  }
+  nav a{
+    color: var(--ink-soft);
+    text-decoration:none;
+    font-size: 13.5px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    transition: background .15s ease, color .15s ease;
+  }
+  nav a:hover{
+    background: rgba(255,255,255,0.12);
+    color: var(--white);
+  }
+
+  .nav-toggle{ display:none; }
+  .nav-toggle-label{
+    display:none;
+    font-size: 22px;
+    cursor:pointer;
+    color: var(--white);
+    line-height:1;
+  }
+
+  @media (max-width: 760px){
+    .nav-toggle-label{ display:block; }
+    nav{
+      width:100%;
+      max-height:0;
+      overflow:hidden;
+      transition: max-height .25s ease;
+    }
+    nav ul{ flex-direction:column; padding: 8px 0; }
+    .nav-toggle:checked ~ nav{ max-height:260px; }
+  }
+
+  /* main content */
+  main{
+    position:relative;
+    z-index:2;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 26px 24px 70px;
+  }
+
+  .hero{
+    padding: 34px 30px;
+    border-radius: 20px;
+    background: linear-gradient(160deg, rgba(120,90,220,0.20), rgba(40,70,170,0.14));
+    border: 1px solid rgba(170,150,255,0.22);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 25px 60px -25px rgba(5,3,15,0.7);
+    margin-bottom: 26px;
+    animation: rise .5s ease both;
+  }
+  .hero h2{
+    margin: 0 0 8px;
+    font-size: 22px;
+    font-weight:700;
+  }
+  .hero p{
+    margin:0;
+    color: var(--ink-soft);
+    font-size: 14px;
+    max-width: 56ch;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(12px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .section-title{
+    font-size: 13px;
+    font-weight:700;
+    color: var(--ink-soft);
+    margin: 0 0 12px;
+  }
+
+  .stats{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .stat-card{
+    padding: 22px 20px;
+    border-radius: 16px;
+    background: linear-gradient(160deg, rgba(120,90,220,0.18), rgba(40,70,170,0.12));
+    border: 1px solid rgba(170,150,255,0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 18px 40px -22px rgba(5,3,15,0.65);
+    transition: transform .15s ease, background .15s ease;
+  }
+  .stat-card:hover{
+    transform: translateY(-3px);
+    background: linear-gradient(160deg, rgba(130,100,235,0.26), rgba(50,80,190,0.18));
+  }
+  .stat-card h3{
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight:600;
+    color: var(--ink-soft);
+  }
+  .stat-card p{
+    margin:0;
+    font-size: 34px;
+    font-weight:700;
+  }
+
+  @media (max-width: 640px){
+    .stats{ grid-template-columns: 1fr; }
+  }
+
+  footer{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding: 18px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>SIMPUS-Mini</h1>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle">
-      <label for="nav-toggle" class="nav-toggle-label">&#9776;</label>
-    <nav>
-      <ul>
-        <li><a href="index.html">Beranda</a></li>
-        <li><a href="buku/list.html">Daftar Buku</a></li>
-        <li><a href="buku/tambah.html">Tambah Buku</a></li>
-        <li><a href="anggota/list.html">Daftar Anggota</a></li>
-        <li><a href="anggota/tambah.html">Tambah Anggota</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main>
-    <section>
-      <h2>Selamat Datang di Sistem Perpustakaan Mini</h2>
-      <p>Aplikasi sederhana untuk mengelola data buku dan anggota perpustakaan.</p>
-    </section>
+<header>
+  <h1>SIMPUS-Mini</h1>
 
-    <section>
-      <h2>Ringkasan</h2>
-      <article>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-label">&#9776;</label>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="buku/list.html">Daftar Buku</a></li>
+      <li><a href="buku/tambah.html">Tambah Buku</a></li>
+      <li><a href="anggota/list.html">Daftar Anggota</a></li>
+      <li><a href="anggota/tambah.html">Tambah Anggota</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h2>Selamat Datang di Sistem Perpustakaan Mini</h2>
+    <p>Aplikasi sederhana untuk mengelola data buku dan anggota perpustakaan.</p>
+  </section>
+
+  <section>
+    <p class="section-title">Ringkasan</p>
+    <div class="stats">
+      <article class="stat-card">
         <h3>Total Buku</h3>
         <p>14</p>
       </article>
-      <article>
-        <h3>Total Anggota:</h3>
+      <article class="stat-card">
+        <h3>Total Anggota</h3>
         <p>8</p>
       </article>
-      <article>
+      <article class="stat-card">
         <h3>Sedang Dipinjam</h3>
         <p>3</p>
       </article>
-    </section>
-  </main>
+    </div>
+  </section>
+</main>
 
-  <footer>
-    <p>&copy; 2026 SIMPUS-Mini &mdash; Jobsheet 3</p>
-  </footer>
+<footer>&copy; 2026 SIMPUS-Mini &mdash; Pemrograman Web</footer>
+
 </body>
 </html>
