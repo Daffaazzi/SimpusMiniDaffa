@@ -5,12 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // =====================================================
     // 1. HAMBURGER MENU
     // =====================================================
+
     const nav = document.querySelector(".nav");
     const btnMenu = document.querySelector(".btn-menu");
 
     if (btnMenu && nav) {
         btnMenu.addEventListener("click", function () {
-            nav.classList.toggle("nav-open");
+            const isOpen = nav.classList.toggle("nav-open");
+            btnMenu.setAttribute("aria-expanded", isOpen);
         });
     }
 
@@ -18,16 +20,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // =====================================================
     // 2. VALIDASI FORM
     // =====================================================
+
     function initValidasiForm(form) {
         if (!form) return;
 
         form.addEventListener("submit", function (event) {
+
+            // Hapus pesan error sebelumnya
             const errorLama = form.querySelectorAll(".error-message");
             errorLama.forEach(function (error) {
                 error.remove();
             });
 
             let valid = true;
+
+            // Ambil semua field wajib
             const fieldWajib = form.querySelectorAll("[required]");
 
             fieldWajib.forEach(function (field) {
@@ -37,7 +44,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            const inputTahun = form.querySelector('input[name="tahun"], input[name="tahun_terbit"]');
+
+            // -------------------------------------------------
+            // Validasi tahun
+            // -------------------------------------------------
+
+            const inputTahun = form.querySelector(
+                'input[name="tahun"], input[name="tahun_terbit"]'
+            );
+
             if (inputTahun && inputTahun.value.trim() !== "") {
                 const tahun = parseInt(inputTahun.value, 10);
                 const tahunSekarang = new Date().getFullYear();
@@ -51,28 +66,45 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
+
+            // -------------------------------------------------
+            // Validasi stok
+            // -------------------------------------------------
+
             const inputStok = form.querySelector('input[name="stok"]');
+
             if (inputStok && inputStok.value.trim() !== "") {
                 const stok = parseInt(inputStok.value, 10);
+
                 if (isNaN(stok) || stok < 0) {
-                    tampilkanError(inputStok, "Stok tidak boleh kurang dari 0.");
+                    tampilkanError(
+                        inputStok,
+                        "Stok tidak boleh kurang dari 0."
+                    );
                     valid = false;
                 }
             }
 
+
+            // Jika tidak valid, cegah form dikirim
             if (!valid) {
                 event.preventDefault();
             }
         });
     }
 
+
+    // Fungsi untuk menampilkan pesan error
     function tampilkanError(field, pesan) {
         const error = document.createElement("div");
         error.classList.add("error-message");
         error.textContent = pesan;
+
         field.insertAdjacentElement("afterend", error);
     }
 
+
+    // Inisialisasi Form
     const formTambahBuku = document.querySelector("#form-tambah-buku");
     const formTambahAnggota = document.querySelector("#form-tambah-anggota");
 
@@ -81,8 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =====================================================
-    // 3. FILTER TABEL
+    // 3. FILTER TABEL REAL-TIME
     // =====================================================
+
     function initTableFilter(input, table) {
         if (!input || !table) return;
 
@@ -92,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             rows.forEach(function (row) {
                 const text = row.textContent.toLowerCase();
+
                 if (text.includes(keyword)) {
                     row.style.display = "";
                 } else {
@@ -104,6 +138,8 @@ document.addEventListener("DOMContentLoaded", function () {
         input.addEventListener("input", filterHandler);
     }
 
+
+    // Inisialisasi Filter
     const searchBuku = document.querySelector("#search-buku");
     const tableBuku = document.querySelector("#table-buku");
     initTableFilter(searchBuku, tableBuku);
@@ -120,30 +156,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =====================================================
-    // 4. TOMBOL HAPUS DENGAN ANIMASI (TARUH DI SINI)
+    // 4. TOMBOL HAPUS (EVENT DELEGATION)
     // =====================================================
-    document.addEventListener("click", function (event) {
-        const button = event.target.closest(".btn-hapus");
 
-        if (button) {
-            const konfirmasi = confirm("Apakah kamu yakin ingin menghapus data ini?");
+    function initHapusConfirm() {
+        document.addEventListener("click", function (event) {
+            const button = event.target.closest(".btn-hapus");
 
-            if (konfirmasi) {
-                const row = button.closest("tr");
+            if (button) {
+                const konfirmasi = confirm(
+                    "Apakah kamu yakin ingin menghapus data ini?"
+                );
 
-                if (row) {
-                    // Animasi memudar
-                    row.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-                    row.style.opacity = "0";
-                    row.style.transform = "scale(0.95)";
+                if (konfirmasi) {
+                    const row = button.closest("tr");
 
-                    // Hapus dari DOM setelah animasi selesai
-                    setTimeout(() => {
-                        row.remove();
-                    }, 300);
+                    if (row) {
+                        row.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+                        row.style.opacity = "0";
+                        row.style.transform = "scale(0.95)";
+
+                        setTimeout(() => {
+                            row.remove();
+                        }, 300);
+                    }
                 }
             }
-        }
-    });
+        });
+    }
+
+    initHapusConfirm();
 
 });

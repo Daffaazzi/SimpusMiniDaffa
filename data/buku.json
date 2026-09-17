@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "judul": "Laskar Pelangi",
+    "pengarang": "Andrea Hirata",
+    "penerbit": "Bentang Pustaka",
+    "tahun_terbit": 2005,
+    "kategori": "Novel",
+    "stok": 5
+  },
+  {
+    "id": 2,
+    "judul": "Bumi Manusia",
+    "pengarang": "Pramoedya Ananta Toer",
+    "penerbit": "Hasta Mitra",
+    "tahun_terbit": 1980,
+    "kategori": "Fiksi Sejarah",
+    "stok": 3
+  },
+  {
+    "id": 3,
+    "judul": "Filosofi Teras",
+    "pengarang": "Henry Manampiring",
+    "penerbit": "Penerbit Buku Kompas",
+    "tahun_terbit": 2018,
+    "kategori": "Self Improvement",
+    "stok": 8
+  },
+  {
+    "id": 4,
+    "judul": "Atomic Habits",
+    "pengarang": "James Clear",
+    "penerbit": "Gramedia Pustaka Utama",
+    "tahun_terbit": 2019,
+    "kategori": "Self Improvement",
+    "stok": 4
+  },
+  {
+    "id": 5,
+    "judul": "Hujan",
+    "pengarang": "Tere Liye",
+    "penerbit": "Republika",
+    "tahun_terbit": 2016,
+    "kategori": "Novel",
+    "stok": 6
+  },
+  {
+    "id": 6,
+    "judul": "Laut Bercerita",
+    "pengarang": "Leila S. Chudori",
+    "penerbit": "Kepustakaan Populer Gramedia",
+    "tahun_terbit": 2017,
+    "kategori": "Fiksi Sejarah",
+    "stok": 2
+  },
+  {
+    "id": 7,
+    "judul": "Cantik Itu Luka",
+    "pengarang": "Eka Kurniawan",
+    "penerbit": "Gramedia Pustaka Utama",
+    "tahun_terbit": 2002,
+    "kategori": "Novel",
+    "stok": 4
+  },
+  {
+    "id": 8,
+    "judul": "Sebuah Seni untuk Bersikap Bodo Amat",
+    "pengarang": "Mark Manson",
+    "penerbit": "Grasindo",
+    "tahun_terbit": 2018,
+    "kategori": "Self Improvement",
+    "stok": 7
+  },
+  {
+    "id": 9,
+    "judul": "Garis Waktu",
+    "pengarang": "Fiersa Besari",
+    "penerbit": "Mediakita",
+    "tahun_terbit": 2016,
+    "kategori": "Puisi & Sastra",
+    "stok": 3
+  },
+  {
+    "id": 10,
+    "judul": "Negeri 5 Menara",
+    "pengarang": "Ahmad Fuadi",
+    "penerbit": "Gramedia Pustaka Utama",
+    "tahun_terbit": 2009,
+    "kategori": "Novel",
+    "stok": 5
+  }
+]
