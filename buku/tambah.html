@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Peminjaman Buku | Tambah Buku</title>
+  <title>SewaKamera Batu | Tambah Unit</title>
 
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -12,23 +12,29 @@
 <body>
 
 <header>
-  <h1>Peminjaman Buku</h1>
+  <h1>SewaKamera Batu</h1>
 
-  <button
-    type="button"
-    class="btn-menu"
-    aria-label="Buka menu"
-    aria-expanded="false">
-    ☰
-  </button>
+  <div class="header-tools">
+    <button
+      type="button"
+      class="btn-menu"
+      aria-label="Buka menu"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <button type="button" class="btn-logout">
+      Logout
+    </button>
+  </div>
 
   <nav class="nav">
     <ul>
       <li><a href="../index.html">Beranda</a></li>
-      <li><a href="list.html">Daftar Buku</a></li>
-      <li><a href="tambah.html">Tambah Buku</a></li>
-      <li><a href="../anggota/list.html">Daftar Anggota</a></li>
-      <li><a href="../anggota/tambah.html">Tambah Anggota</a></li>
+      <li><a href="list.html">Daftar Kamera & Lensa</a></li>
+      <li><a href="tambah.html">Tambah Unit</a></li>
+      <li><a href="../anggota/list.html">Daftar Member</a></li>
+      <li><a href="../anggota/tambah.html">Tambah Member</a></li>
     </ul>
   </nav>
 </header>
@@ -37,42 +43,42 @@
 
   <section>
 
-    <h2>Tambah Buku</h2>
+    <h2>Tambah Unit Kamera / Lensa</h2>
 
     <form id="form-tambah-buku">
 
       <p>
-        <label for="judul">Judul Buku</label>
+        <label for="judul">Merek</label>
         <input
           type="text"
           id="judul"
           name="judul"
-          placeholder="Masukkan judul buku"
+          placeholder="Contoh: Canon"
           required>
       </p>
 
       <p>
-        <label for="pengarang">Pengarang</label>
+        <label for="pengarang">Tipe Unit</label>
         <input
           type="text"
           id="pengarang"
           name="pengarang"
-          placeholder="Masukkan nama pengarang"
+          placeholder="Contoh: Mirrorless Full Frame"
           required>
       </p>
 
       <p>
-        <label for="penerbit">Penerbit</label>
+        <label for="penerbit">Lokasi</label>
         <input
           type="text"
           id="penerbit"
           name="penerbit"
-          placeholder="Masukkan penerbit"
+          placeholder="Contoh: Kota Batu"
           required>
       </p>
 
       <p>
-        <label for="tahun">Tahun Terbit</label>
+        <label for="tahun">Tahun Produksi</label>
         <input
           type="number"
           id="tahun"
@@ -82,22 +88,22 @@
       </p>
 
       <p>
-        <label for="isbn">ISBN</label>
+        <label for="isbn">Kode Unit</label>
         <input
           type="text"
           id="isbn"
           name="isbn"
-          placeholder="Masukkan ISBN">
+          placeholder="Contoh: CAM-015">
       </p>
 
       <p>
-        <label for="stok">Stok</label>
+        <label for="stok">Jumlah Unit</label>
         <input
           type="number"
           id="stok"
           name="stok"
           min="0"
-          placeholder="Masukkan jumlah stok"
+            placeholder="Masukkan jumlah unit"
           required>
       </p>
 
@@ -106,18 +112,19 @@
 
         <select id="kategori" name="kategori">
 
-          <option value="Novel">Novel</option>
-          <option value="Fiksi Sejarah">Fiksi Sejarah</option>
-          <option value="Self Improvement">Self Improvement</option>
-          <option value="Puisi & Sastra">Puisi & Sastra</option>
-          <option value="Referensi">Referensi</option>
+          <option value="Kamera DSLR">Kamera DSLR</option>
+          <option value="Kamera Mirrorless">Kamera Mirrorless</option>
+          <option value="Lensa">Lensa</option>
+          <option value="Action Cam">Action Cam</option>
+          <option value="Drone">Drone</option>
+          <option value="Kamera Film">Kamera Film</option>
 
         </select>
       </p>
 
       <p>
         <button type="submit">
-          Simpan Buku
+          Simpan Unit
         </button>
       </p>
 
@@ -128,7 +135,7 @@
 </main>
 
 <footer>
-  &copy; 2026 SIMPUS-Mini — Pemrograman Web
+  &copy; 2026 SewaKamera Batu — Penyewaan Kamera & Lensa
 </footer>
 
 <script src="../assets/js/app.js"></script>

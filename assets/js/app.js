@@ -4,6 +4,74 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    function adaSegmenPath(segmen) {
+        return window.location.pathname
+            .replace(/\\/g, "/")
+            .includes(segmen);
+    }
+
+    function halamanDiSubfolder() {
+        return adaSegmenPath("/buku/") || adaSegmenPath("/anggota/");
+    }
+
+    function buatPathRelatif(pathRoot) {
+        return halamanDiSubfolder()
+            ? `../${pathRoot}`
+            : pathRoot;
+    }
+
+    // =================================================
+    // 0. CEK LOGIN & STATUS NAV
+    // =================================================
+
+    const halamanLogin =
+        window.location.pathname.toLowerCase().endsWith("/login.html") ||
+        window.location.pathname.toLowerCase().endsWith("\\login.html");
+
+    if (!halamanLogin && localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = buatPathRelatif("login.html");
+
+        return;
+    }
+
+    const btnLogout = document.querySelector(".btn-logout");
+
+    if (btnLogout) {
+
+        btnLogout.addEventListener("click", function () {
+
+            const konfirmasi = confirm("Keluar dari sesi sekarang?");
+
+            if (!konfirmasi) return;
+
+            localStorage.removeItem("isLoggedIn");
+
+            window.location.href = buatPathRelatif("login.html");
+
+        });
+
+    }
+
+    const pathSaatIni =
+        window.location.pathname
+            .replace(/\\/g, "/")
+            .split("/")
+            .pop();
+
+    document.querySelectorAll("nav a").forEach(function (link) {
+
+        const href =
+            link.getAttribute("href") || "";
+
+        const namaFile =
+            href.replace(/\\/g, "/").split("/").pop();
+
+        if (namaFile === pathSaatIni) {
+            link.classList.add("active");
+        }
+
+    });
+
     // =================================================
     // 1. HAMBURGER MENU
     // =================================================
@@ -277,6 +345,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =================================================
+    // 3B. RINGKASAN BERANDA
+    // =================================================
+
+    async function isiStatistikDashboard() {
+
+        const statTotalBuku =
+            document.querySelector("#stat-total-buku");
+
+        const statTotalAnggota =
+            document.querySelector("#stat-total-anggota");
+
+        const statTotalPinjam =
+            document.querySelector("#stat-total-pinjam");
+
+        if (!statTotalBuku || !statTotalAnggota || !statTotalPinjam) {
+            return;
+        }
+
+        try {
+
+            const [dataBukuResponse, dataAnggotaResponse] =
+                await Promise.all([
+                    fetch(buatPathRelatif("data/buku.json"), { cache: "no-cache" }),
+                    fetch(buatPathRelatif("data/anggota.json"), { cache: "no-cache" })
+                ]);
+
+            const dataBuku =
+                dataBukuResponse.ok
+                    ? await dataBukuResponse.json()
+                    : [];
+
+            const dataAnggota =
+                dataAnggotaResponse.ok
+                    ? await dataAnggotaResponse.json()
+                    : [];
+
+            const totalBuku =
+                Array.isArray(dataBuku)
+                    ? dataBuku.length
+                    : 0;
+
+            const totalAnggota =
+                Array.isArray(dataAnggota)
+                    ? dataAnggota.length
+                    : 0;
+
+            const totalDipinjam =
+                Array.isArray(dataBuku)
+                    ? dataBuku.filter(function (item) {
+                        return Number(item.stok) >= 0 && Number(item.stok) <= 3;
+                    }).length
+                    : 0;
+
+            statTotalBuku.textContent = String(totalBuku);
+            statTotalAnggota.textContent = String(totalAnggota);
+            statTotalPinjam.textContent = String(totalDipinjam);
+
+        } catch (error) {
+
+            console.error("Gagal memuat statistik dashboard:", error);
+
+            statTotalBuku.textContent = "-";
+            statTotalAnggota.textContent = "-";
+            statTotalPinjam.textContent = "-";
+
+        }
+
+    }
+
+    isiStatistikDashboard();
+
+
+    // =================================================
     // FILTER GENERIC
     // =================================================
 
@@ -300,53 +441,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
-    // =================================================
-    // 4. KONFIRMASI TOMBOL HAPUS
-    // =================================================
-
-    document.addEventListener(
-        "click",
-        function (event) {
-
-            const button =
-                event.target.closest(".btn-hapus");
-
-            if (!button) return;
-
-
-            const konfirmasi =
-                confirm(
-                    "Apakah kamu yakin ingin menghapus data ini?"
-                );
-
-
-            if (!konfirmasi) return;
-
-
-            const row =
-                button.closest("tr");
-
-            if (!row) return;
-
-
-            // Animasi menghilang
-            row.style.transition =
-                "opacity 0.3s ease, transform 0.3s ease";
-
-            row.style.opacity = "0";
-
-            row.style.transform =
-                "scale(0.95)";
-
-
-            setTimeout(function () {
-
-                row.remove();
-
-            }, 300);
-
-        }
-    );
 
 });

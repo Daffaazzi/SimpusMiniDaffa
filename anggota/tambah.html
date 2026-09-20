@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Peminjaman Buku | Tambah Anggota</title>
+  <title>SewaKamera Batu | Tambah Member</title>
 
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -12,23 +12,29 @@
 <body>
 
 <header>
-  <h1>SIMPUS-Mini</h1>
+  <h1>SewaKamera Batu</h1>
 
-  <button
-    type="button"
-    class="btn-menu"
-    aria-label="Buka menu"
-    aria-expanded="false">
-    ☰
-  </button>
+  <div class="header-tools">
+    <button
+      type="button"
+      class="btn-menu"
+      aria-label="Buka menu"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <button type="button" class="btn-logout">
+      Logout
+    </button>
+  </div>
 
   <nav class="nav">
     <ul>
       <li><a href="../index.html">Beranda</a></li>
-      <li><a href="../buku/list.html">Daftar Buku</a></li>
-      <li><a href="../buku/tambah.html">Tambah Buku</a></li>
-      <li><a href="list.html">Daftar Anggota</a></li>
-      <li><a href="tambah.html">Tambah Anggota</a></li>
+      <li><a href="../buku/list.html">Daftar Kamera & Lensa</a></li>
+      <li><a href="../buku/tambah.html">Tambah Unit</a></li>
+      <li><a href="list.html">Daftar Member</a></li>
+      <li><a href="tambah.html">Tambah Member</a></li>
     </ul>
   </nav>
 </header>
@@ -37,20 +43,20 @@
 
   <section>
 
-    <h2>Tambah Anggota</h2>
+    <h2>Tambah Member Penyewaan</h2>
 
     <form id="form-tambah-anggota">
 
       <p>
         <label for="no_anggota">
-          Nomor Anggota
+          Nomor Member
         </label>
 
         <input
           type="text"
           id="no_anggota"
           name="no_anggota"
-          placeholder="Contoh: A005"
+          placeholder="Contoh: M005"
           required>
       </p>
 
@@ -95,7 +101,7 @@
 
       <p>
         <button type="submit">
-          Simpan Anggota
+          Simpan Member
         </button>
       </p>
 
@@ -106,7 +112,7 @@
 </main>
 
 <footer>
-  &copy; 2026 SIMPUS-Mini — Pemrograman Web
+  &copy; 2026 SewaKamera Batu — Penyewaan Kamera & Lensa
 </footer>
 
 <script src="../assets/js/app.js"></script>

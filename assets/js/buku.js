@@ -41,7 +41,7 @@ async function muatDataBuku() {
         });
 
 
-        // Ambil data buku
+        // Ambil data unit
         const response =
             await fetch("../data/buku.json", {
                 cache: "no-cache"
@@ -99,9 +99,9 @@ async function muatDataBuku() {
         tbody.innerHTML = `
             <tr>
                 <td colspan="8" class="error-table">
-                    <strong>⚠️ Terjadi Kesalahan</strong>
+                    <strong>Terjadi Kesalahan</strong>
                     <br>
-                    Gagal mengambil data buku.
+                    Gagal mengambil data unit kamera/lensa.
                     <br>
                     <small>
                         ${escapeHtml(error.message)}
@@ -234,7 +234,7 @@ function tampilkanDataBukuKosong(tbody) {
     tbody.innerHTML = `
         <tr>
             <td colspan="8" class="empty-data">
-                📚 Belum ada data buku yang tersimpan.
+                Belum ada data unit kamera/lensa yang tersimpan.
             </td>
         </tr>
     `;
@@ -330,7 +330,7 @@ function aktifkanPencarianBuku() {
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="8" class="empty-data">
-                            🔍 Data buku tidak ditemukan.
+                            Data unit tidak ditemukan.
                         </td>
                     </tr>
                 `;
@@ -383,9 +383,9 @@ function aktifkanTombolBuku() {
 
                     alert(
                         `Edit buku:\n\n` +
-                        `Judul: ${buku.judul || "-"}\n` +
-                        `Pengarang: ${buku.pengarang || "-"}\n` +
-                        `Penerbit: ${buku.penerbit || "-"}`
+                        `Merek: ${buku.judul || "-"}\n` +
+                        `Tipe Unit: ${buku.pengarang || "-"}\n` +
+                        `Lokasi: ${buku.penerbit || "-"}`
                     );
 
                 }
@@ -423,7 +423,7 @@ function aktifkanTombolBuku() {
 
                     const namaBuku =
                         buku.judul ||
-                        "buku ini";
+                        "unit ini";
 
 
                     const yakin =

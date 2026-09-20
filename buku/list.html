@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Peminjaman Buku | Daftar Buku</title>
+  <title>SewaKamera Batu | Daftar Kamera & Lensa</title>
 
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -12,23 +12,29 @@
 <body>
 
 <header>
-  <h1>SIMPUS-Mini</h1>
+  <h1>SewaKamera Batu</h1>
 
-  <button
-    type="button"
-    class="btn-menu"
-    aria-label="Buka menu"
-    aria-expanded="false">
-    ☰
-  </button>
+  <div class="header-tools">
+    <button
+      type="button"
+      class="btn-menu"
+      aria-label="Buka menu"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <button type="button" class="btn-logout">
+      Logout
+    </button>
+  </div>
 
   <nav class="nav">
     <ul>
       <li><a href="../index.html">Beranda</a></li>
-      <li><a href="list.html">Daftar Buku</a></li>
-      <li><a href="tambah.html">Tambah Buku</a></li>
-      <li><a href="../anggota/list.html">Daftar Anggota</a></li>
-      <li><a href="../anggota/tambah.html">Tambah Anggota</a></li>
+      <li><a href="list.html">Daftar Kamera & Lensa</a></li>
+      <li><a href="tambah.html">Tambah Unit</a></li>
+      <li><a href="../anggota/list.html">Daftar Member</a></li>
+      <li><a href="../anggota/tambah.html">Tambah Member</a></li>
     </ul>
   </nav>
 </header>
@@ -37,15 +43,15 @@
 
   <section>
 
-    <h2>Daftar Buku</h2>
+    <h2>Daftar Kamera & Lensa</h2>
 
     <div class="search-box">
-      <label for="search-buku">Cari Buku</label>
+      <label for="search-buku">Cari Unit</label>
 
       <input
         type="text"
         id="search-buku"
-        placeholder="Ketik judul, pengarang, atau kategori...">
+        placeholder="Ketik merek, tipe unit, atau kategori...">
     </div>
 
     <div id="loading-indicator">
@@ -59,9 +65,9 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Judul</th>
-            <th>Pengarang</th>
-            <th>Penerbit</th>
+            <th>Merek</th>
+            <th>Tipe Unit</th>
+            <th>Lokasi</th>
             <th>Tahun</th>
             <th>Kategori</th>
             <th>Stok</th>
@@ -80,7 +86,7 @@
 </main>
 
 <footer>
-  &copy; 2026 SIMPUS-Mini — Pemrograman Web
+  &copy; 2026 SewaKamera Batu — Penyewaan Kamera & Lensa
 </footer>
 
 <script src="../assets/js/buku.js"></script>

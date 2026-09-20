@@ -71,7 +71,7 @@ async function muatDataAnggota() {
         tbody.innerHTML = `
             <tr>
                 <td colspan="7" class="error-table">
-                    <strong>⚠️ Terjadi Kesalahan</strong>
+                    <strong>Terjadi Kesalahan</strong>
                     <br>
                     Gagal mengambil data anggota.
                     <br>
@@ -188,7 +188,7 @@ function tampilkanDataKosong(tbody) {
     tbody.innerHTML = `
         <tr>
             <td colspan="7" class="empty-data">
-                📚 Belum ada data anggota yang terdaftar.
+                Belum ada data anggota yang terdaftar.
             </td>
         </tr>
     `;
@@ -268,7 +268,7 @@ function aktifkanPencarian() {
             tbody.innerHTML = `
                 <tr>
                     <td colspan="7" class="empty-data">
-                        🔍 Data anggota tidak ditemukan.
+                        Data anggota tidak ditemukan.
                     </td>
                 </tr>
             `;
@@ -303,7 +303,7 @@ function aktifkanTombolAksi() {
             alert(
                 `Edit anggota:\n\n` +
                 `Nama: ${anggota.nama || "-"}\n` +
-                `NPM: ${anggota.npm || anggota.no_anggota || "-"}`
+                `No. Member: ${anggota.npm || anggota.no_anggota || "-"}`
             );
 
         });
