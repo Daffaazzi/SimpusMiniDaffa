@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Data Anggota - BatuCam Rental</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.8/brite/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <div>
+      <h2 class="section-title mb-1"><i class="fa-solid fa-users text-brand-accent me-2"></i>Data Anggota</h2>
+      <p class="section-subtitle mb-0">Data dirender langsung dari <code>localStorage</code> lewat JavaScript.</p>
+    </div>
+    <a href="anggota-tambah.html" class="btn btn-brand-accent"><i class="fa-solid fa-user-plus me-1"></i> Tambah Anggota</a>
+  </div>
+
+  <div id="flashArea"></div>
+
+  <div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nama</th>
+            <th>No. Identitas</th>
+            <th>WhatsApp</th>
+            <th>Email</th>
+            <th>Alamat</th>
+            <th class="text-end">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyAnggota"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/anggota.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  requireLogin();
+  renderNavbar('anggota-list.html');
+  renderFooter();
+
+  const isBaru = new URLSearchParams(window.location.search).has('baru');
+
+  function tampilkanAnggota() {
+    const tbody = document.getElementById('tbodyAnggota');
+    const list = getAnggotaList().slice().reverse();
+
+    if (list.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="7" class="text-center text-muted py-5">
+            <i class="fa-solid fa-user-slash fs-3 d-block mb-2"></i>
+            Belum ada data anggota. Klik "Tambah Anggota" untuk mulai.
+          </td>
+        </tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(function (a, i) {
+      return `
+        <tr ${(isBaru && i === 0) ? 'class="flash"' : ''}>
+          <td>${i + 1}</td>
+          <td class="fw-semibold">${a.nama}</td>
+          <td>${a.no_identitas}</td>
+          <td>${a.whatsapp}</td>
+          <td>${a.email}</td>
+          <td class="small">${a.alamat}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-danger btn-hapus-konfirmasi" data-id="${a.id}">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  tampilkanAnggota();
+
+  document.getElementById('tbodyAnggota').addEventListener('click', function (e) {
+    const btn = e.target.closest('.btn-hapus-konfirmasi');
+    if (!btn) return;
+    hapusAnggota(btn.dataset.id);
+    tampilkanAnggota();
+  });
+</script>
+</body>
+</html>

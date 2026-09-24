@@ -1,69 +1,146 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SewaKamera Batu | Beranda</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Beranda - BatuCam Rental | Sewa Kamera & Lensa Kota Batu</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.8/brite/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
 </head>
 <body>
 
-<header>
-  <h1>SewaKamera Batu</h1>
+<div id="navbar-placeholder"></div>
+<div class="container mt-3"><div id="flashArea"></div></div>
 
-  <div class="header-tools">
-    <button
-      type="button"
-      class="btn-menu"
-      aria-label="Buka menu"
-      aria-expanded="false">
-      ☰
-    </button>
-
-    <button type="button" class="btn-logout">
-      Logout
-    </button>
-  </div>
-
-  <nav class="nav">
-    <ul>
-      <li><a href="index.html" class="active">Beranda</a></li>
-      <li><a href="buku/list.html">Daftar Kamera & Lensa</a></li>
-      <li><a href="buku/tambah.html">Tambah Unit</a></li>
-      <li><a href="anggota/list.html">Daftar Member</a></li>
-      <li><a href="anggota/tambah.html">Tambah Member</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <section class="hero">
-    <h2>Selamat Datang di Sewa Kamera & Lensa Kota Batu</h2>
-    <p>Kelola daftar unit kamera, lensa, dan member penyewaan dalam satu dashboard sederhana.</p>
-  </section>
-
-  <section>
-    <p class="section-title">Ringkasan</p>
-    <div class="stats">
-      <article class="stat-card">
-        <h3>Total Unit</h3>
-        <p id="stat-total-buku">0</p>
-      </article>
-      <article class="stat-card">
-        <h3>Total Member</h3>
-        <p id="stat-total-anggota">0</p>
-      </article>
-      <article class="stat-card">
-        <h3>Stok Terbatas</h3>
-        <p id="stat-total-pinjam">0</p>
-      </article>
+<!-- HERO -->
+<section class="hero-section">
+  <div class="container">
+    <span class="badge hero-badge text-white px-3 py-2 rounded-pill mb-3">
+      <i class="fa-solid fa-location-dot me-1"></i> Kota Batu, Jawa Timur
+    </span>
+    <h1 class="mb-3">Sewa Kamera &amp; Lensa<br>di Kota Batu</h1>
+    <p class="lead mb-4">
+      Abadikan momen terbaikmu di antara pegunungan Kota Batu. Tersedia 14 merk kamera &amp; lensa
+      DSLR, mirrorless, hingga aksi — siap disewa harian dengan proses cepat &amp; mudah.
+    </p>
+    <div class="d-flex flex-wrap gap-3">
+      <a href="produk.html" class="btn btn-brand-accent btn-lg px-4">
+        <i class="fa-solid fa-camera me-1"></i> Lihat Katalog Merk
+      </a>
+      <a href="#" id="btnBookingHero" class="btn btn-outline-light btn-lg px-4">
+        <i class="fa-solid fa-calendar-check me-1"></i> Booking Sekarang
+      </a>
     </div>
-  </section>
-</main>
+  </div>
+</section>
 
-<footer>&copy; 2026 SewaKamera Batu &mdash; Penyewaan Kamera & Lensa</footer>
+<!-- STATISTIK -->
+<section class="container py-5">
+  <div class="row g-4 text-center">
+    <div class="col-6 col-md-3">
+      <h3 class="fw-800 text-brand-accent mb-0" id="jumlahMerk">14</h3>
+      <p class="section-subtitle small mb-0">Merk Kamera &amp; Lensa</p>
+    </div>
+    <div class="col-6 col-md-3">
+      <h3 class="fw-800 text-brand-accent mb-0">50+</h3>
+      <p class="section-subtitle small mb-0">Unit Siap Sewa</p>
+    </div>
+    <div class="col-6 col-md-3">
+      <h3 class="fw-800 text-brand-accent mb-0">1.200+</h3>
+      <p class="section-subtitle small mb-0">Transaksi Selesai</p>
+    </div>
+    <div class="col-6 col-md-3">
+      <h3 class="fw-800 text-brand-accent mb-0">4.9/5</h3>
+      <p class="section-subtitle small mb-0">Rating Pelanggan</p>
+    </div>
+  </div>
+</section>
 
+<!-- CARA SEWA -->
+<section class="container py-4">
+  <h2 class="section-title text-center mb-2">Cara Sewa</h2>
+  <p class="section-subtitle text-center mb-5">Tiga langkah mudah untuk membawa pulang kamera impianmu</p>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="d-flex gap-3">
+        <div class="step-icon flex-shrink-0"><i class="fa-solid fa-list-check"></i></div>
+        <div>
+          <h5 class="fw-bold">1. Pilih Merk</h5>
+          <p class="text-muted small mb-0">Jelajahi katalog 14 merk kamera &amp; lensa sesuai kebutuhanmu.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="d-flex gap-3">
+        <div class="step-icon flex-shrink-0"><i class="fa-solid fa-file-signature"></i></div>
+        <div>
+          <h5 class="fw-bold">2. Booking</h5>
+          <p class="text-muted small mb-0">Isi formulir booking dengan tanggal sewa &amp; data dirimu.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="d-flex gap-3">
+        <div class="step-icon flex-shrink-0"><i class="fa-solid fa-camera-retro"></i></div>
+        <div>
+          <h5 class="fw-bold">3. Ambil &amp; Motret</h5>
+          <p class="text-muted small mb-0">Ambil unit di toko kami dan mulai abadikan momenmu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW KATALOG -->
+<section class="container py-5">
+  <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div>
+      <h2 class="section-title mb-1">Merk Tersedia</h2>
+      <p class="section-subtitle mb-0">14 pilihan merk kamera &amp; lensa siap disewa</p>
+    </div>
+    <a href="produk.html" class="btn btn-outline-dark btn-sm">Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i></a>
+  </div>
+  <div class="row g-4" id="previewMerk"></div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/data-merk.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/common.js"></script>
 <script src="assets/js/app.js"></script>
+<script>
+  renderNavbar('index.html');
+  renderFooter();
 
+  document.getElementById('jumlahMerk').textContent = DAFTAR_MERK.length;
+
+  const preview = document.getElementById('previewMerk');
+  DAFTAR_MERK.slice(0, 8).forEach(function (m) {
+    preview.insertAdjacentHTML('beforeend', `
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card brand-card">
+          <img src="assets/img/brands/${m.slug}.svg" alt="${m.nama}">
+          <div class="card-body">
+            <span class="badge bg-secondary-subtle text-secondary-emphasis mb-2">${m.kategori}</span>
+            <h6 class="fw-bold mb-1">${m.nama}</h6>
+            <p class="small text-muted mb-2">${m.tipe}</p>
+            <p class="fw-bold text-brand-accent mb-0">${formatRupiah(m.harga)} <span class="fw-normal text-muted small">/hari</span></p>
+          </div>
+        </div>
+      </div>
+    `);
+  });
+
+  document.getElementById('btnBookingHero').addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.href = isLoggedIn() ? 'buku-tambah.html' : 'login.html';
+  });
+</script>
 </body>
 </html>

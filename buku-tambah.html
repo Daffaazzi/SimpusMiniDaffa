@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tambah Booking - BatuCam Rental</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.8/brite/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<div class="container py-5" style="max-width:760px;">
+  <h2 class="section-title mb-1"><i class="fa-solid fa-calendar-plus text-brand-accent me-2"></i>Tambah Booking Sewa</h2>
+  <p class="section-subtitle mb-4">Form ini divalidasi oleh JavaScript &amp; disimpan ke <code>localStorage</code>.</p>
+
+  <div id="errorArea"></div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+      <form id="formBooking" class="needs-validation" novalidate>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold small">Nama Penyewa</label>
+            <input type="text" name="nama_penyewa" class="form-control" required minlength="3" placeholder="Nama lengkap">
+            <div class="invalid-feedback">Nama minimal 3 karakter.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold small">No. WhatsApp</label>
+            <input type="text" name="whatsapp" class="form-control" required pattern="[0-9+\s-]{8,15}" placeholder="08xxxxxxxxxx">
+            <div class="invalid-feedback">Nomor WhatsApp tidak valid.</div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold small">Merk Kamera / Lensa</label>
+            <select name="merk" id="merk" class="form-select" required>
+              <option value="" disabled selected>-- Pilih merk --</option>
+            </select>
+            <div class="invalid-feedback">Pilih salah satu merk.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold small">Jumlah Unit</label>
+            <input type="number" name="jumlah_unit" class="form-control" required min="1" max="10" value="1">
+            <div class="invalid-feedback">Jumlah unit 1-10.</div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold small">Tanggal Mulai Sewa</label>
+            <input type="date" name="tgl_mulai" id="tgl_mulai" class="form-control" required>
+            <div class="invalid-feedback">Tanggal mulai wajib diisi.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold small">Tanggal Selesai Sewa</label>
+            <input type="date" name="tgl_selesai" id="tgl_selesai" class="form-control" required>
+            <div class="invalid-feedback">Tanggal selesai wajib diisi &amp; tidak boleh sebelum tanggal mulai.</div>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold small">Catatan (opsional)</label>
+            <textarea name="catatan" class="form-control" rows="2" placeholder="Kebutuhan tambahan, lokasi pemotretan, dll."></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <button type="submit" class="btn btn-brand-accent px-4"><i class="fa-solid fa-check me-1"></i>Simpan Booking</button>
+          <a href="buku-list.html" class="btn btn-outline-dark px-4">Batal</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/data-merk.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/booking.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  requireLogin();
+  renderNavbar('buku-tambah.html');
+  renderFooter();
+
+  // Isi opsi merk
+  const selectMerk = document.getElementById('merk');
+  DAFTAR_MERK.forEach(function (m) {
+    const opt = document.createElement('option');
+    opt.value = m.slug;
+    opt.textContent = `${m.nama} (${m.kategori}) - ${formatRupiah(m.harga)}/hari`;
+    selectMerk.appendChild(opt);
+  });
+
+  // Batasi tanggal mulai minimal hari ini
+  const todayStr = new Date().toISOString().split('T')[0];
+  document.getElementById('tgl_mulai').min = todayStr;
+
+  // Auto pilih merk kalau datang dari Katalog (?merk=slug)
+  const params = new URLSearchParams(window.location.search);
+  const merkParam = params.get('merk');
+  if (merkParam) selectMerk.value = merkParam;
+
+  document.getElementById('formBooking').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) {
+      form.classList.add('was-validated');
+      return;
+    }
+
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    const hasil = tambahBooking(data);
+
+    const errorArea = document.getElementById('errorArea');
+    if (hasil.ok) {
+      setFlash('Booking untuk ' + data.nama_penyewa + ' berhasil disimpan.');
+      window.location.href = 'buku-list.html?baru=1';
+    } else {
+      errorArea.innerHTML = `
+        <div class="alert alert-danger">
+          <strong>Periksa kembali isian berikut:</strong>
+          <ul class="mb-0 mt-1">
+            ${hasil.errors.map(e => `<li>${e}</li>`).join('')}
+          </ul>
+        </div>`;
+    }
+  });
+</script>
+</body>
+</html>
