@@ -1,37 +1,37 @@
-# Wireframe - BatuCam Rental (Versi HTML Statis)
+# Wireframe - BatuCam Rental (Jobsheet-07)
 
 ## Alur Halaman
 
 ```
-Beranda (index.html)
+Beranda (index.php)
  ├─ Hero (background foto, judul, CTA "Booking Sekarang")
  ├─ Statistik singkat
  ├─ Cara Sewa (3 langkah)
- └─ Preview Katalog Merk (8 dari 14 merk, dirender via JS)
+ └─ Preview Katalog Merk (8 dari 14 merk)
         │
         ▼
-Katalog Merk (produk.html)
- ├─ Filter kategori: Semua / Body Kamera / Lensa (JS, tanpa reload halaman)
+Katalog Merk (produk/list.php)
+ ├─ Filter kategori: Semua / Body Kamera / Lensa
  └─ 14 kartu merk (gambar, tipe, harga/hari, tombol "Sewa Sekarang")
         │
         ▼  (butuh login)
-Login (login.html)
+Login (login.php)
  ├─ Background foto (sama seperti hero)
  ├─ Logo kamera & lensa
- └─ Form username & password → disimpan ke sessionStorage
+ └─ Form username & password → set $_SESSION['user']
         │
         ▼
-┌───────────────────────┬──────────────────────────┐
-│  Data Booking          │  Data Anggota              │
-│  - buku-list.html      │  - anggota-list.html       │
-│  - buku-tambah.html    │  - anggota-tambah.html     │
-└───────────────────────┴──────────────────────────┘
+┌────────────────────┬─────────────────────┐
+│  Data Booking       │  Data Anggota        │
+│  (buku/)            │  (anggota/)          │
+│  - list.php         │  - list.php          │
+│  - tambah.php       │  - tambah.php        │
+│  - proses_tambah.php│  - proses_tambah.php │
+└────────────────────┴─────────────────────┘
 ```
 
 ## Catatan Desain
 - Template mengikuti tema Bootswatch **Brite** (Bootstrap 5) via CDN cdnjs.
 - Warna aksen oranye (`--brand-accent`) ditambahkan di atas palet Brite untuk identitas merk BatuCam Rental.
-- **Tidak ada server/bahasa backend** (PHP/Java) — murni HTML + CSS + JavaScript, bisa langsung dibuka dari file `index.html` di browser.
-- Navbar & footer dirender oleh `assets/js/common.js` ke dalam `<div id="navbar-placeholder">` dan `<div id="footer-placeholder">` di setiap halaman, menggantikan pola *include* di PHP.
-- Data transaksi (booking & anggota) disimpan di **localStorage** (bertahan walau browser ditutup), sedangkan status login disimpan di **sessionStorage** (hilang saat tab ditutup) — meniru perilaku `$_SESSION` di versi PHP.
-- Form booking & anggota divalidasi di JavaScript (`assets/js/booking.js` & `assets/js/anggota.js`) sebelum disimpan.
+- Semua data transaksi (booking & anggota) disimpan di `$_SESSION`, tidak memakai database — konsisten dengan pendekatan jobsheet-06.
+- Form booking & anggota divalidasi di sisi server (`proses_tambah.php`) sebelum disimpan; error dikembalikan lewat `$_SESSION['form_errors']`.
