@@ -30,7 +30,7 @@
         </div>
         <hr class="border-secondary mt-4 mb-3">
         <p class="text-center text-white-50 small mb-0">
-            &copy; <?= date('Y') ?> BatuCam Rental &mdash; Kota Batu. Jobsheet-07 &middot; Dibuat dengan PHP, JavaScript &amp; CSS.
+            &copy; <?= date('Y') ?> BatuCam Rental &mdash; Kota Batu. Jobsheet-08 &middot; Dibuat dengan PHP, JavaScript &amp; CSS.
         </p>
     </div>
 </footer>

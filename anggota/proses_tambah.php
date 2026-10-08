@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/koneksi.php';
 requireLogin();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -34,13 +35,12 @@ if (mb_strlen($alamat) < 8) {
     $errors[] = 'Alamat minimal 8 karakter.';
 }
 
-// Cek duplikasi nomor identitas
-if (empty($errors) && !empty($_SESSION['anggota_list'])) {
-    foreach ($_SESSION['anggota_list'] as $a) {
-        if ($a['no_identitas'] === $no_identitas) {
-            $errors[] = 'Nomor identitas sudah terdaftar sebagai anggota.';
-            break;
-        }
+// Cek duplikasi nomor identitas di database
+if (empty($errors)) {
+    $cek = $pdo->prepare('SELECT COUNT(*) FROM anggota WHERE no_identitas = :no');
+    $cek->execute([':no' => $no_identitas]);
+    if ((int) $cek->fetchColumn() > 0) {
+        $errors[] = 'Nomor identitas sudah terdaftar sebagai anggota.';
     }
 }
 
@@ -51,20 +51,29 @@ if (!empty($errors)) {
     exit;
 }
 
-// ===== SIMPAN KE $_SESSION =====
-if (!isset($_SESSION['anggota_list']) || !is_array($_SESSION['anggota_list'])) {
-    $_SESSION['anggota_list'] = [];
+// ===== SIMPAN KE DATABASE (prepared statement) =====
+try {
+    $stmt = $pdo->prepare(
+        'INSERT INTO anggota (nama, no_identitas, whatsapp, email, alamat)
+         VALUES (:nama, :no_identitas, :whatsapp, :email, :alamat)'
+    );
+    $stmt->execute([
+        ':nama'         => $nama,
+        ':no_identitas' => $no_identitas,
+        ':whatsapp'     => $whatsapp,
+        ':email'        => $email,
+        ':alamat'       => $alamat,
+    ]);
+} catch (PDOException $e) {
+    // 23505 = unique_violation (jaga-jaga kalau dua request masuk bersamaan)
+    $pesan = ($e->getCode() === '23505')
+        ? 'Nomor identitas sudah terdaftar sebagai anggota.'
+        : 'Gagal menyimpan ke database: ' . $e->getMessage();
+    $_SESSION['form_errors'] = [$pesan];
+    $_SESSION['form_old'] = $old;
+    header('Location: tambah.php');
+    exit;
 }
-
-$_SESSION['anggota_list'][] = [
-    'id'           => uniqid('ag_'),
-    'nama'         => $nama,
-    'no_identitas' => $no_identitas,
-    'whatsapp'     => $whatsapp,
-    'email'        => $email,
-    'alamat'       => $alamat,
-    'dibuat_pada'  => date('Y-m-d H:i:s'),
-];
 
 flash('sukses', 'Anggota ' . $nama . ' berhasil ditambahkan.');
 header('Location: list.php?baru=1');

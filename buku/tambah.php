@@ -15,7 +15,7 @@ include __DIR__ . '/../includes/header.php';
 
 <div class="container py-5" style="max-width:760px;">
     <h2 class="section-title mb-1"><i class="fa-solid fa-calendar-plus text-brand-accent me-2"></i>Tambah Booking Sewa</h2>
-    <p class="section-subtitle mb-4">Form ini divalidasi di server &amp; disimpan ke <code>$_SESSION</code>.</p>
+    <p class="section-subtitle mb-4">Form ini divalidasi di server &amp; disimpan ke database PostgreSQL.</p>
 
     <?php if (!empty($errors)): ?>
     <div class="alert alert-danger">

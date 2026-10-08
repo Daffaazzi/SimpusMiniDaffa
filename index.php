@@ -1,9 +1,17 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/data_merk.php';
+require_once __DIR__ . '/includes/koneksi.php';
 
 $pageTitle = 'Beranda';
 $merkList = daftarMerk();
+
+// Statistik dari database (SELECT COUNT(*))
+$totalBooking = (int) $pdo->query('SELECT COUNT(*) FROM buku')->fetchColumn();
+$totalAnggota = (int) $pdo->query('SELECT COUNT(*) FROM anggota')->fetchColumn();
+$stmtBaru     = $pdo->prepare('SELECT COUNT(*) FROM buku WHERE status = :status');
+$stmtBaru->execute([':status' => 'Baru']);
+$bookingBaru  = (int) $stmtBaru->fetchColumn();
 $pesanSukses = flash('sukses');
 include __DIR__ . '/includes/header.php';
 ?>
@@ -47,16 +55,16 @@ include __DIR__ . '/includes/header.php';
             <p class="section-subtitle small mb-0">Merk Kamera &amp; Lensa</p>
         </div>
         <div class="col-6 col-md-3">
-            <h3 class="fw-800 text-brand-accent mb-0">50+</h3>
-            <p class="section-subtitle small mb-0">Unit Siap Sewa</p>
+            <h3 class="fw-800 text-brand-accent mb-0"><?= $totalBooking ?></h3>
+            <p class="section-subtitle small mb-0">Total Booking</p>
         </div>
         <div class="col-6 col-md-3">
-            <h3 class="fw-800 text-brand-accent mb-0">1.200+</h3>
-            <p class="section-subtitle small mb-0">Transaksi Selesai</p>
+            <h3 class="fw-800 text-brand-accent mb-0"><?= $totalAnggota ?></h3>
+            <p class="section-subtitle small mb-0">Anggota Terdaftar</p>
         </div>
         <div class="col-6 col-md-3">
-            <h3 class="fw-800 text-brand-accent mb-0">4.9/5</h3>
-            <p class="section-subtitle small mb-0">Rating Pelanggan</p>
+            <h3 class="fw-800 text-brand-accent mb-0"><?= $bookingBaru ?></h3>
+            <p class="section-subtitle small mb-0">Booking Berstatus Baru</p>
         </div>
     </div>
 </section>

@@ -12,7 +12,7 @@ include __DIR__ . '/../includes/header.php';
 
 <div class="container py-5" style="max-width:680px;">
     <h2 class="section-title mb-1"><i class="fa-solid fa-user-plus text-brand-accent me-2"></i>Tambah Anggota</h2>
-    <p class="section-subtitle mb-4">Data pelanggan tetap BatuCam Rental, disimpan ke <code>$_SESSION</code>.</p>
+    <p class="section-subtitle mb-4">Data pelanggan tetap BatuCam Rental, disimpan ke database PostgreSQL.</p>
 
     <?php if (!empty($errors)): ?>
     <div class="alert alert-danger">

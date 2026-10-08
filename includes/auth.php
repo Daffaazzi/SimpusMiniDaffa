@@ -27,7 +27,7 @@ function requireLogin() {
 }
 
 /**
- * Mengembalikan path relatif menuju root project (jobsheet-07/)
+ * Mengembalikan path relatif menuju root project (jobsheet-08/)
  * supaya link tetap benar walau file dipanggil dari sub-folder (buku/, anggota/, produk/).
  */
 function baseUrl($path = '') {

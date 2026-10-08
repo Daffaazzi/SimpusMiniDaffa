@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/data_merk.php';
+require_once __DIR__ . '/../includes/koneksi.php';
 requireLogin();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -55,29 +56,38 @@ if (!empty($errors)) {
     exit;
 }
 
-// ===== SIMPAN KE $_SESSION =====
-if (!isset($_SESSION['booking_list']) || !is_array($_SESSION['booking_list'])) {
-    $_SESSION['booking_list'] = [];
-}
-
-$lamaHari = max(1, round(($selesaiTs - $mulaiTs) / 86400) + 1);
+// ===== SIMPAN KE DATABASE (prepared statement) =====
+$lamaHari   = (int) max(1, round(($selesaiTs - $mulaiTs) / 86400) + 1);
 $totalHarga = $lamaHari * $jumlah_unit * $merkData['harga'];
 
-$_SESSION['booking_list'][] = [
-    'id'            => uniqid('bk_'),
-    'nama_penyewa'  => $nama_penyewa,
-    'whatsapp'      => $whatsapp,
-    'merk_slug'     => $merkData['slug'],
-    'merk_nama'     => $merkData['nama'],
-    'jumlah_unit'   => $jumlah_unit,
-    'tgl_mulai'     => $tgl_mulai,
-    'tgl_selesai'   => $tgl_selesai,
-    'lama_hari'     => $lamaHari,
-    'total_harga'   => $totalHarga,
-    'catatan'       => $catatan,
-    'status'        => 'Baru',
-    'dibuat_pada'   => date('Y-m-d H:i:s'),
-];
+$sql = 'INSERT INTO buku
+            (nama_penyewa, whatsapp, merk_slug, merk_nama, jumlah_unit,
+             tgl_mulai, tgl_selesai, lama_hari, total_harga, catatan, status)
+        VALUES
+            (:nama_penyewa, :whatsapp, :merk_slug, :merk_nama, :jumlah_unit,
+             :tgl_mulai, :tgl_selesai, :lama_hari, :total_harga, :catatan, :status)';
+
+try {
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':nama_penyewa' => $nama_penyewa,
+        ':whatsapp'     => $whatsapp,
+        ':merk_slug'    => $merkData['slug'],
+        ':merk_nama'    => $merkData['nama'],
+        ':jumlah_unit'  => $jumlah_unit,
+        ':tgl_mulai'    => $tgl_mulai,
+        ':tgl_selesai'  => $tgl_selesai,
+        ':lama_hari'    => $lamaHari,
+        ':total_harga'  => $totalHarga,
+        ':catatan'      => $catatan,
+        ':status'       => 'Baru',
+    ]);
+} catch (PDOException $e) {
+    $_SESSION['form_errors'] = ['Gagal menyimpan ke database: ' . $e->getMessage()];
+    $_SESSION['form_old'] = $old;
+    header('Location: tambah.php');
+    exit;
+}
 
 flash('sukses', 'Booking untuk ' . $nama_penyewa . ' berhasil disimpan.');
 header('Location: list.php?baru=1');

@@ -1,27 +1,27 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/data_merk.php';
+require_once __DIR__ . '/../includes/koneksi.php';
 requireLogin();
 
 $pageTitle = 'Data Booking';
 $pesanSukses = flash('sukses');
 $isBaru = isset($_GET['baru']);
 
-// Hapus data (opsional, by id)
-if (isset($_GET['hapus']) && !empty($_SESSION['booking_list'])) {
-    $idHapus = $_GET['hapus'];
-    $_SESSION['booking_list'] = array_values(array_filter(
-        $_SESSION['booking_list'],
-        fn($b) => $b['id'] !== $idHapus
-    ));
-    flash('sukses', 'Data booking berhasil dihapus.');
+// Hapus data (by id) dengan prepared statement
+if (isset($_GET['hapus'])) {
+    $idHapus = (int) $_GET['hapus'];
+    if ($idHapus > 0) {
+        $stmt = $pdo->prepare('DELETE FROM buku WHERE id = :id');
+        $stmt->execute([':id' => $idHapus]);
+        flash('sukses', 'Data booking berhasil dihapus.');
+    }
     header('Location: list.php');
     exit;
 }
 
-$bookingList = $_SESSION['booking_list'] ?? [];
-// urutkan terbaru di atas
-$bookingList = array_reverse($bookingList);
+// Ambil semua booking dari database, terbaru di atas
+$bookingList = $pdo->query('SELECT * FROM buku ORDER BY id DESC')->fetchAll();
 
 include __DIR__ . '/../includes/header.php';
 ?>
@@ -30,7 +30,7 @@ include __DIR__ . '/../includes/header.php';
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
         <div>
             <h2 class="section-title mb-1"><i class="fa-solid fa-calendar-days text-brand-accent me-2"></i>Data Booking Sewa</h2>
-            <p class="section-subtitle mb-0">Data dirender langsung dari <code>$_SESSION</code> — tidak memakai fetch/JSON.</p>
+            <p class="section-subtitle mb-0">Data diambil dari tabel <code>buku</code> di PostgreSQL lewat <code>SELECT * FROM buku</code>.</p>
         </div>
         <a href="tambah.php" class="btn btn-brand-accent"><i class="fa-solid fa-plus me-1"></i> Tambah Booking</a>
     </div>
@@ -82,7 +82,7 @@ include __DIR__ . '/../includes/header.php';
                             <td class="fw-bold text-brand-accent"><?= formatRupiah($b['total_harga']) ?></td>
                             <td><span class="badge badge-status-baru text-dark"><?= htmlspecialchars($b['status']) ?></span></td>
                             <td class="text-end">
-                                <a href="list.php?hapus=<?= urlencode($b['id']) ?>"
+                                <a href="list.php?hapus=<?= (int) $b['id'] ?>"
                                    class="btn btn-sm btn-outline-danger btn-hapus-konfirmasi">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
