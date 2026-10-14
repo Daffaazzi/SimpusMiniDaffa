@@ -6,11 +6,11 @@
  *
  * Sesuaikan $pass dengan password user postgres yang dibuat saat install PostgreSQL.
  */
-$host = 'localhost';
-$port = '5432';
-$db   = 'simpus_mini';
-$user = 'postgres';
-$pass = '12345678';
+$host = getenv('PGHOST')     ?: '127.0.0.1';
+$port = getenv('PGPORT')     ?: '5432';
+$db   = getenv('PGDATABASE') ?: 'simpus_mini';
+$user = getenv('PGUSER')     ?: 'postgres';
+$pass = getenv('PGPASSWORD') ?: '12345678';
 
 try {
     $pdo = new PDO(
